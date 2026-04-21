@@ -10,21 +10,25 @@ const RemitoBuilder = () => {
   const [selectedProductId, setSelectedProductId] = useState('');
   const [cantidad, setCantidad] = useState('');
   const [itemsRemito, setItemsRemito] = useState([]);
+  const [fechaRemito, setFechaRemito] = useState(new Date().toISOString().split('T')[0]);
 
   useEffect(() => {
     const loadData = async () => {
-      const p = await getProducts();
-      const c = await getCustomers();
-      setProducts(p);
-      setCustomers(c);
+      try {
+        const [p, c] = await Promise.all([getProducts(), getCustomers()]);
+        setProducts(p);
+        setCustomers(c);
+      } catch (error) {
+        toast.error("Error al cargar datos");
+      }
     };
     loadData();
   }, []);
 
   const handleAddItem = () => {
     if (!selectedProductId || !cantidad || cantidad <= 0) {
-        toast.error("Selecciona un producto y cantidad válida");
-        return;
+      toast.error("Revisar producto y cantidad");
+      return;
     }
     const producto = products.find(p => p.id === selectedProductId);
     const nuevoItem = {
@@ -37,15 +41,17 @@ const RemitoBuilder = () => {
     setItemsRemito([...itemsRemito, nuevoItem]);
     setCantidad('');
     setSelectedProductId('');
-    toast.success(`${producto.nombre} añadido al remito`);
   };
 
   const removeItem = (index) => {
     setItemsRemito(itemsRemito.filter((_, i) => i !== index));
-    toast.error("Item eliminado");
   };
 
   const totalFinal = itemsRemito.reduce((acc, item) => acc + item.subtotal, 0);
+
+  const formatCurrency = (num) => {
+    return num.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
 
   const handleProcessRemito = async () => {
     if (!selectedCustomer || itemsRemito.length === 0) {
@@ -57,69 +63,72 @@ const RemitoBuilder = () => {
       clienteNombre: selectedCustomer.nombre,
       clienteDireccion: selectedCustomer.direccion,
       items: itemsRemito,
-      total: totalFinal
+      total: totalFinal,
+      fechaManual: fechaRemito
     };
 
-    const loadingToast = toast.loading("Guardando remito...");
-
+    const loadingToast = toast.loading("Procesando remito...");
     try {
       await saveRemito(data);
       toast.dismiss(loadingToast);
-      toast.success("Remito guardado correctamente");
-      window.print();
-      setItemsRemito([]);
-      setSelectedCustomer(null);
+      
+      // Delay un poco más largo para asegurar que los overlays de toast se limpien
+      setTimeout(() => {
+        window.print();
+        toast.success("Remito guardado");
+        setItemsRemito([]);
+        setSelectedCustomer(null);
+      }, 800);
     } catch (e) {
       toast.dismiss(loadingToast);
-      toast.error("Error al procesar el remito");
+      toast.error("Error al guardar");
     }
   };
 
+  const minRows = 5;
+  const emptyRowsNeeded = Math.max(0, minRows - itemsRemito.length);
+
   return (
     <div className="remito-container">
-      <div className="no-print section-controls">
+      <div className="section-controls no-print">
         <h2>Generador de Remito</h2>
-        
-        <div className="remito-header-form">
-          <label>Cliente:</label>
-          <select 
-            value={selectedCustomer?.id || ''} 
-            onChange={(e) => setSelectedCustomer(customers.find(c => c.id === e.target.value))}
-          >
-            <option value="">-- Seleccionar Cliente --</option>
-            {customers.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
-          </select>
-        </div>
-
-        <div className="add-product-row">
-          <select value={selectedProductId} onChange={(e) => setSelectedProductId(e.target.value)}>
-            <option value="">-- Seleccionar Producto --</option>
-            {products.map(p => <option key={p.id} value={p.id}>{p.nombre} (${p.precioKilo}/kg)</option>)}
-          </select>
-          <input 
-            type="number" 
-            placeholder="Kilos" 
-            value={cantidad} 
-            onChange={(e) => setCantidad(e.target.value)} 
-          />
-          <button onClick={handleAddItem} className="btn-add-item">Agregar</button>
+        <div className="remito-inline-form">
+          <div className="input-group group-fecha">
+            <label>Fecha</label>
+            <input type="date" value={fechaRemito} onChange={(e) => setFechaRemito(e.target.value)} />
+          </div>
+          <div className="input-group group-cliente">
+            <label>Cliente</label>
+            <select value={selectedCustomer?.id || ''} onChange={(e) => setSelectedCustomer(customers.find(c => c.id === e.target.value))}>
+              <option value="">Seleccionar Cliente...</option>
+              {customers.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+            </select>
+          </div>
+          <div className="input-group group-producto">
+            <label>Producto</label>
+            <select value={selectedProductId} onChange={(e) => setSelectedProductId(e.target.value)}>
+              <option value="">Elegir Producto...</option>
+              {products.map(p => <option key={p.id} value={p.id}>{p.nombre} (${p.precioKilo})</option>)}
+            </select>
+          </div>
+          <div className="input-group group-kilos">
+            <label>Kilos</label>
+            <input type="number" placeholder="0" value={cantidad} onChange={(e) => setCantidad(e.target.value)} />
+          </div>
+          <button onClick={handleAddItem} className="btn-add-item-short">AGREGAR</button>
         </div>
       </div>
 
-      <div className="remito-preview">
+      <div className="remito-preview printable-content">
         <div className="remito-document-header">
           <h1>REMITO</h1>
           <div className="header-info-flex">
-            {selectedCustomer ? (
-              <div className="customer-data">
-                <p><strong>SEÑOR(ES):</strong> {selectedCustomer.nombre}</p>
-                <p><strong>DOMICILIO:</strong> {selectedCustomer.direccion}</p>
-              </div>
-            ) : (
-              <p className="no-print" style={{color: 'red'}}>Seleccione un cliente para continuar</p>
-            )}
+            <div className="customer-data">
+              <p><strong>SEÑOR(ES):</strong> {selectedCustomer ? selectedCustomer.nombre : "___________________________"}</p>
+              <p><strong>DOMICILIO:</strong> {selectedCustomer ? selectedCustomer.direccion : "___________________________"}</p>
+            </div>
             <div className="date-data">
-              <p><strong>FECHA:</strong> {new Date().toLocaleDateString()}</p>
+              <p><strong>FECHA:</strong> {fechaRemito.split('-').reverse().join('/')}</p>
             </div>
           </div>
         </div>
@@ -127,35 +136,48 @@ const RemitoBuilder = () => {
         <table className="remito-table">
           <thead>
             <tr>
-              <th>DESCRIPCIÓN</th>
-              <th>P. UNIT.</th>
-              <th>CANTIDAD</th>
-              <th>SUBTOTAL</th>
-              <th className="no-print"></th>
+              <th style={{ width: '60px' }}>CANT.</th>
+              <th>ESPECIAS / DESCRIPCIÓN</th>
+              <th className="text-right" style={{ width: '120px' }}>PRECIO</th>
+              <th className="text-right" style={{ width: '160px' }}>COMPRA</th>
+              <th className="no-print" style={{ width: '40px' }}></th>
             </tr>
           </thead>
           <tbody>
             {itemsRemito.map((item, i) => (
               <tr key={i}>
+                <td className="text-center">{item.cantidad}k</td>
                 <td>{item.nombre}</td>
-                <td>${item.precioKilo}</td>
-                <td>{item.cantidad} kg</td>
-                <td>${item.subtotal.toLocaleString()}</td>
-                <td className="no-print">
-                  <button className="btn-remove-item" onClick={() => removeItem(i)}>x</button>
+                <td className="text-right">$ {formatCurrency(item.precioKilo)}</td>
+                <td className="text-right">$ {formatCurrency(item.subtotal)}</td>
+                <td className="no-print text-center">
+                  <button className="btn-remove-item" onClick={() => removeItem(i)}>×</button>
                 </td>
               </tr>
             ))}
+            
+            {Array(emptyRowsNeeded).fill(0).map((_, i) => (
+              <tr key={`empty-${i}`} className="empty-row">
+                <td>&nbsp;</td><td></td><td></td><td></td><td className="no-print"></td>
+              </tr>
+            ))}
+
+            <tr className="total-row">
+              <td colSpan="3" className="text-right label-total">TOTAL</td>
+              <td className="text-right amount-total">
+                <div className="total-wrapper">
+                  <span className="symbol">$</span>
+                  <span className="value">{formatCurrency(totalFinal)}</span>
+                </div>
+              </td>
+              <td className="no-print"></td>
+            </tr>
           </tbody>
         </table>
-        
-        <div className="total-box">
-          <h3>TOTAL: ${totalFinal.toLocaleString()}</h3>
-        </div>
       </div>
       
-      <button onClick={handleProcessRemito} className="btn-print no-print">
-        Guardar e Imprimir
+      <button onClick={handleProcessRemito} className="btn-print-action no-print">
+        Guardar e Imprimir Remito
       </button>
     </div>
   );

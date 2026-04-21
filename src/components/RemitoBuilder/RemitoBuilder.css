@@ -1,0 +1,263 @@
+.remito-container {
+  padding: 30px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  color: white;
+}
+
+/* PANEL DE CONTROL ORIGINAL */
+.section-controls {
+  background: rgba(18, 18, 18, 0.9);
+  backdrop-filter: blur(12px);
+  padding: 25px 35px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.section-controls h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.remito-inline-form {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  justify-content: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 800;
+  text-align: center;
+}
+
+.input-group input, 
+.input-group select {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  padding: 0 12px !important;
+  border-radius: 8px !important;
+  color: white !important;
+  height: 45px;
+  font-size: 0.95rem;
+}
+
+.group-fecha input { width: 160px; }
+.group-cliente { flex: 2; min-width: 200px; }
+.group-producto { flex: 2; min-width: 200px; }
+.group-kilos input { width: 90px; text-align: center; }
+
+.btn-add-item-short {
+  margin-top: 25px;
+  background: #4ade80 !important;
+  color: #064e3b !important;
+  border: none;
+  padding: 0 25px;
+  border-radius: 10px !important;
+  font-weight: 800;
+  height: 45px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+/* --- DISEÑO DEL REMITO --- */
+.remito-preview {
+  background: white;
+  color: #000;
+  padding: 30px 45px;
+  max-width: 850px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+}
+
+.remito-document-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 10px;
+  text-align: center;
+  border-bottom: 3px solid #000;
+  padding-bottom: 8px;
+}
+
+.header-info-flex {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  font-size: 0.95rem;
+}
+
+.remito-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.remito-table th {
+  background: #e0e0e0;
+  border: 2px solid #000;
+  padding: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.remito-table td {
+  border: 1px solid #000;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.empty-row td {
+  height: 24px;
+}
+
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+/* TOTAL */
+.total-row td {
+  border: none;
+  padding-top: 15px;
+}
+
+.total-row .label-total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding-right: 15px;
+}
+
+.total-row .amount-total {
+  border: 2.5px solid #000 !important;
+  background: #f0f0f0;
+  padding: 8px 12px !important;
+}
+
+.total-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.total-wrapper .symbol {
+  font-weight: 900;
+}
+
+.total-wrapper .value {
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.btn-print-action {
+  width: 100%;
+  margin: 30px auto;
+  max-width: 850px;
+  display: block;
+  padding: 16px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-remove-item {
+  background: #fee2e2;
+  color: #ef4444;
+  border: 1px solid #fecaca;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* --- SOLUCIÓN FINAL CABECERAS --- */
+@media print {
+  @page { 
+    size: auto; 
+    margin: 0; /* Mata React App, fecha y localhost */
+  }
+
+  body { 
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .no-print, 
+  .section-controls, 
+  .btn-print-action,
+  header, nav, footer,
+  div[class*="toast"],
+  div[id*="toast"],
+  .HotToaster { 
+    display: none !important; 
+    visibility: hidden !important;
+  }
+
+  /* Usamos este contenedor para darle el margen que la hoja necesita */
+  .remito-container {
+    padding: 1cm 1.5cm !important; 
+    margin: 0 !important;
+    max-width: none !important;
+    display: block !important;
+  }
+
+  .remito-preview { 
+    border: none !important; 
+    box-shadow: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .remito-table td, 
+  .remito-table th,
+  .total-row .amount-total {
+    border: 1px solid #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* Estilos específicos para los selects en el panel oscuro */
+.input-group select {
+  appearance: none; /* Elimina la flecha default si querés, o la dejamos para usabilidad */
+  cursor: pointer;
+}
+
+/* Esto arregla el recuadro blanco de las opciones */
+.input-group select option {
+  background-color: #1a1a1a !important; /* Fondo oscuro sólido */
+  color: white !important;
+  padding: 10px;
+}
+
+/* Estilo cuando el input está enfocado */
+.input-group input:focus, 
+.input-group select:focus {
+  outline: none !important;
+  border-color: #4ade80 !important; /* Color verde como el botón de agregar */
+  background: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
+}
+
+/* Para navegadores basados en Webkit (Chrome/Safari) que a veces ignoran el bg de option */
+.input-group select:-webkit-autofill {
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important;
+}

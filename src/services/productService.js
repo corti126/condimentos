@@ -50,9 +50,18 @@ export const getCustomers = async () => {
 
 export const addCustomer = async (nombre, direccion) => {
   await addDoc(collection(db, "clientes"), {
-    nombre: nombre, // Usamos 'nombre' como quedamos para que sea prolijo
+    nombre: nombre,
     direccion: direccion,
     activo: true
+  });
+};
+
+// FUNCIÓN AGREGADA: Para editar datos de clientes existentes
+export const updateCustomer = async (id, data) => {
+  const customerRef = doc(db, "clientes", id);
+  await updateDoc(customerRef, {
+    nombre: data.nombre,
+    direccion: data.direccion
   });
 };
 
@@ -67,8 +76,8 @@ export const saveRemito = async (remitoData) => {
   try {
     const docRef = await addDoc(collection(db, "remitos"), {
       ...remitoData,
-      fecha: new Date().toISOString(), // Fecha técnica para ordenar
-      fechaFormateada: new Date().toLocaleDateString('es-AR'), // Fecha legible
+      fecha: new Date().toISOString(),
+      fechaFormateada: new Date().toLocaleDateString('es-AR'),
     });
     return docRef.id;
   } catch (error) {
@@ -79,7 +88,6 @@ export const saveRemito = async (remitoData) => {
 
 export const getRemitosHistory = async () => {
   const remitosCol = collection(db, "remitos");
-  // Los traemos ordenados por fecha, del más nuevo al más viejo
   const q = query(remitosCol, orderBy("fecha", "desc"));
   const snapshot = await getDocs(q);
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
