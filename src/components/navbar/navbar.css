@@ -1,0 +1,81 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 3rem;
+  /* Fondo oscuro semi-transparente */
+  background-color: rgba(20, 20, 20, 0.75); 
+  /* Efecto de desenfoque prolijo */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-logo .logo-img {
+  height: 45px; /* Ajusta el tamaño según tu logo */
+  width: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo .logo-img:hover {
+  transform: scale(1.05);
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  position: relative;
+}
+
+.navbar-links li a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  padding: 5px 0;
+}
+
+/* Efecto Hover */
+.navbar-links li a:hover {
+  color: #fff;
+}
+
+/* Indicador de pestaña activa */
+.navbar-links li.active a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.navbar-links li.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff8a00, #e52e71); /* Un degradado sutil */
+  border-radius: 2px;
+}
+
+/* Para que los nombres de las secciones se vean lindos al imprimir, ocultamos el nav */
+@media print {
+  .navbar {
+    display: none;
+  }
+}

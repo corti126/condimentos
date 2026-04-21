@@ -1,3 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  /* Reemplaza la URL por la ruta de tu imagen */
+  background-image:url('/public/wp8139740.png'); 
+  background-size: cover;      /* Cubre toda la pantalla */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* La imagen no se mueve al hacer scroll */
+  min-height: 100vh;
+}
+
 .App {
   text-align: center;
 }

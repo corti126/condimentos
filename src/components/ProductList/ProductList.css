@@ -1,0 +1,166 @@
+.product-list-container {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.list-header h2 {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  margin: 0;
+}
+
+/* Botón Agregar con Icono */
+.btn-add-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #28a745, #218838);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.btn-add-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+  filter: brightness(1.1);
+}
+
+/* Tabla Estilo Glassmorphism Simétrica */
+.custom-table {
+  width: 100%;
+  table-layout: fixed; /* CRÍTICO: Fuerza a las columnas a respetar el ancho */
+  border-collapse: separate;
+  border-spacing: 0;
+  background: rgba(20, 20, 20, 0.3); 
+  backdrop-filter: blur(8px);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Encabezados alineados */
+.custom-table th {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.col-nombre { width: 24.33%; text-align: left !important; padding-left: 100px !important; }
+.col-precio { width: 33.33%; text-align: center !important; }
+.col-acciones { width: 33.33%; text-align: center !important; }
+
+/* Filas */
+.custom-table tbody tr {
+  background-color: rgba(255, 255, 255, 0.02);
+  transition: background 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.custom-table td {
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+/* Celdas alineadas con los títulos */
+.name-cell {
+  text-align: left  !important;
+  padding-left: 55px !important;
+}
+
+.price-cell {
+  text-align: center !important;
+  font-weight: 700;
+  color: #4ade80 !important; 
+  text-shadow: 0 0 8px rgba(74, 222, 128, 0.2);
+  font-family: 'Roboto Mono', monospace;
+}
+
+/* Acciones centradas bajo su título */
+.actions-cell {
+  text-align: center !important;
+}
+
+.actions-wrapper {
+  display: inline-flex; /* Para que el centrado del td funcione */
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Botones de acción */
+.btn-edit, .btn-delete {
+  padding: 8px 16px;
+  margin: 0 6px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-edit {
+  background-color: rgba(0, 123, 255, 0.15);
+  color: #70b5ff;
+  border-color: rgba(0, 123, 255, 0.3);
+}
+
+.btn-edit:hover {
+  background-color: #007bff;
+  color: white;
+  transform: scale(1.05);
+}
+
+.btn-delete {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #ff7684;
+  border-color: rgba(220, 53, 69, 0.3);
+}
+
+.btn-delete:hover {
+  background-color: #dc3545;
+  color: white;
+  transform: scale(1.05);
+}
+
+.loading-state {
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 50px;
+  letter-spacing: 2px;
+  font-style: italic;
+}
