@@ -78,7 +78,7 @@ const RemitoBuilder = () => {
   return (
     <div className="remito-container">
       <div className="no-print section-controls">
-        <h2>Generador de Remitos</h2>
+        <h2>Generador de Remito</h2>
         
         <div className="remito-header-form">
           <label>Cliente:</label>
