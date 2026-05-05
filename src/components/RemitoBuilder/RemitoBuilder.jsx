@@ -72,7 +72,6 @@ const RemitoBuilder = () => {
       await saveRemito(data);
       toast.dismiss(loadingToast);
       
-      // Delay un poco más largo para asegurar que los overlays de toast se limpien
       setTimeout(() => {
         window.print();
         toast.success("Remito guardado");

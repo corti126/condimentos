@@ -1,0 +1,177 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #121212;
+  width: 100%;
+  max-width: 550px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  padding: 20px 25px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.header-title h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.remito-id {
+  font-size: 0.7rem;
+  color: #64748b;
+  font-family: monospace;
+}
+
+.close-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: #94a3b8;
+  font-size: 28px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.close-button:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.modal-body {
+  padding: 25px;
+}
+
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.info-item label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #64748b;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.info-item p {
+  margin: 0;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.section-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #64748b;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.modal-table-wrapper {
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.modal-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal-table th {
+  text-align: left;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.75rem;
+  color: #94a3b8;
+  position: sticky;
+  top: 0;
+}
+
+.modal-table td {
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  font-size: 0.9rem;
+}
+
+.weight-text {
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.text-right { text-align: right; }
+
+.modal-footer {
+  padding: 20px 25px;
+  background: rgba(74, 222, 128, 0.03);
+  border-top: 1px solid rgba(74, 222, 128, 0.1);
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #4ade80;
+}
+
+.total-amount {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #4ade80;
+}
+
+/* Custom Scrollbar para el modal */
+.modal-table-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-table-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}

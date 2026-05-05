@@ -11,7 +11,6 @@ const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // Estados para modales
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -34,13 +33,11 @@ const CustomerList = () => {
     fetchCustomers();
   }, []);
 
-  // Lógica para Editar
   const handleOpenEdit = (customer) => {
     setSelectedCustomer(customer);
     setIsEditModalOpen(true);
   };
 
-  // Lógica para Eliminar
   const handleOpenDelete = (customer) => {
     setSelectedCustomer(customer);
     setIsDeleteModalOpen(true);
@@ -114,14 +111,12 @@ const CustomerList = () => {
         </table>
       )}
 
-      {/* MODAL AGREGAR */}
       <AgregarClienteModal 
         isOpen={isAddModalOpen} 
         onClose={() => setIsAddModalOpen(false)} 
         onCustomerAdded={fetchCustomers}
       />
 
-      {/* MODAL EDITAR */}
       <EditarClienteModal 
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
@@ -129,7 +124,6 @@ const CustomerList = () => {
         onCustomerUpdated={fetchCustomers}
       />
 
-      {/* MODAL ELIMINAR */}
       <EliminarClienteModal 
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}

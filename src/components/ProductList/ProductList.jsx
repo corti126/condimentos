@@ -11,7 +11,6 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // Estados para modales
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -34,13 +33,11 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  // Función para abrir el modal de edición
   const openEditModal = (product) => {
     setSelectedProduct(product);
     setIsEditModalOpen(true);
   };
 
-  // Función que procesa la actualización desde el modal
   const confirmPriceUpdate = async (id, nombre, nuevoPrecio) => {
     const loadingToast = toast.loading("Actualizando precio...");
     try {
@@ -54,7 +51,6 @@ const ProductList = () => {
     }
   };
 
-  // Abrir modal de eliminación
   const openDeleteModal = (product) => {
     setSelectedProduct(product);
     setIsDeleteModalOpen(true);
@@ -128,14 +124,12 @@ const ProductList = () => {
         </table>
       )}
 
-      {/* MODAL AGREGAR */}
       <AgregarCondimentoModal 
         isOpen={isAddModalOpen} 
         onClose={() => setIsAddModalOpen(false)} 
         onProductAdded={fetchProducts} 
       />
 
-      {/* MODAL ELIMINAR */}
       <EliminarCondimentoModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
@@ -143,7 +137,6 @@ const ProductList = () => {
         nombreProducto={selectedProduct?.nombre}
       />
 
-      {/* MODAL EDITAR PRECIO */}
       <EditarPrecioModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
