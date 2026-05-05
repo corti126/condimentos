@@ -5,7 +5,6 @@
   color: white;
 }
 
-/* PANEL DE CONTROL ORIGINAL */
 .section-controls {
   background: rgba(18, 18, 18, 0.9);
   backdrop-filter: blur(12px);
@@ -73,7 +72,6 @@
   text-transform: uppercase;
 }
 
-/* --- DISEÑO DEL REMITO --- */
 .remito-preview {
   background: white;
   color: #000;
@@ -127,7 +125,6 @@
 .text-right { text-align: right; }
 .text-center { text-align: center; }
 
-/* TOTAL */
 .total-row td {
   border: none;
   padding-top: 15px;
@@ -185,11 +182,10 @@
   cursor: pointer;
 }
 
-/* --- SOLUCIÓN FINAL CABECERAS --- */
 @media print {
   @page { 
     size: auto; 
-    margin: 0; /* Mata React App, fecha y localhost */
+    margin: 0;
   }
 
   body { 
@@ -209,7 +205,6 @@
     visibility: hidden !important;
   }
 
-  /* Usamos este contenedor para darle el margen que la hoja necesita */
   .remito-container {
     padding: 1cm 1.5cm !important; 
     margin: 0 !important;
@@ -234,29 +229,25 @@
   }
 }
 
-/* Estilos específicos para los selects en el panel oscuro */
 .input-group select {
-  appearance: none; /* Elimina la flecha default si querés, o la dejamos para usabilidad */
+  appearance: none;
   cursor: pointer;
 }
 
-/* Esto arregla el recuadro blanco de las opciones */
 .input-group select option {
-  background-color: #1a1a1a !important; /* Fondo oscuro sólido */
+  background-color: #1a1a1a !important;
   color: white !important;
   padding: 10px;
 }
 
-/* Estilo cuando el input está enfocado */
 .input-group input:focus, 
 .input-group select:focus {
   outline: none !important;
-  border-color: #4ade80 !important; /* Color verde como el botón de agregar */
+  border-color: #4ade80 !important;
   background: rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
 }
 
-/* Para navegadores basados en Webkit (Chrome/Safari) que a veces ignoran el bg de option */
 .input-group select:-webkit-autofill {
   -webkit-text-fill-color: white !important;
   -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important;

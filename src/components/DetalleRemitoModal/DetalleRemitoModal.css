@@ -167,7 +167,6 @@
   color: #4ade80;
 }
 
-/* Custom Scrollbar para el modal */
 .modal-table-wrapper::-webkit-scrollbar {
   width: 6px;
 }

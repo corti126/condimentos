@@ -49,10 +49,9 @@
   filter: brightness(1.1);
 }
 
-/* Tabla Estilo Glassmorphism Simétrica */
 .custom-table {
   width: 100%;
-  table-layout: fixed; /* CRÍTICO: Fuerza a las columnas a respetar el ancho */
+  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
   background: rgba(20, 20, 20, 0.3); 
@@ -63,7 +62,6 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
-/* Encabezados alineados */
 .custom-table th {
   background-color: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.9);
@@ -95,7 +93,6 @@
   vertical-align: middle;
 }
 
-/* Celdas alineadas con los títulos */
 .name-cell {
   text-align: left  !important;
   padding-left: 55px !important;
@@ -109,18 +106,16 @@
   font-family: 'Roboto Mono', monospace;
 }
 
-/* Acciones centradas bajo su título */
 .actions-cell {
   text-align: center !important;
 }
 
 .actions-wrapper {
-  display: inline-flex; /* Para que el centrado del td funcione */
+  display: inline-flex;
   gap: 12px;
   justify-content: center;
 }
 
-/* Botones de acción */
 .btn-edit, .btn-delete {
   padding: 8px 16px;
   margin: 0 6px;

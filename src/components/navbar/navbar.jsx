@@ -9,7 +9,6 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-logo">
         <Link to="/">
-          {/* Reemplaza 'URL_DE_TU_LOGO' por la ruta de tu imagen */}
           <img src="logo-final.png" alt="Logo EspeciasApp" className="logo-img" />
         </Link>
       </div>

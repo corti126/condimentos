@@ -6,7 +6,7 @@ import './History.css';
 const History = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedRemito, setSelectedRemito] = useState(null); // Para el modal
+  const [selectedRemito, setSelectedRemito] = useState(null);
 
   useEffect(() => {
     const fetchHistory = async () => {
